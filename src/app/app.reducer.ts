@@ -1,6 +1,7 @@
 import { ActionReducer, combineReducers } from '@ngrx/store';
 
 import { People } from './people/people.model';
+
 import { PeopleReducer } from './people/people.reducer';
 import { PartyFilterReducer } from './people/party-filter.reducer';
 

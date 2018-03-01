@@ -1,3 +1,6 @@
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 export const partyModel = () => {
     return state => state
         .map(([people, filter]) => {

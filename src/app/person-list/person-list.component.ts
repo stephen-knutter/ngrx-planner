@@ -31,5 +31,5 @@ export class PersonListComponent {
     @Output() addGuest = new EventEmitter();
     @Output() removeGuest = new EventEmitter();
     @Output() removePerson = new EventEmitter();
-    @Output() ToggleAttending = new EventEmitter();
+    @Output() toggleAttending = new EventEmitter();
 }

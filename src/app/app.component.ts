@@ -10,12 +10,12 @@ import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
 
-import { partyModel } from './app.selectors';
+import { partyModel, percentAttending } from './app.selectors';
 
 @Component({
   selector: 'app-root',
   template: `
-    <h3>@ngrx/store party planner</h3>
+    <h3>@ngrx/store planner</h3>
     <div class="margin-bottom-10">
       Percent Attendance: {{ percentAttendance | async }}%
     </div>
@@ -29,7 +29,9 @@ import { partyModel } from './app.selectors';
 
     </party-stats>
 
-    <filter-select></filter-select>
+    <filter-select
+      (updateFilter)="updateFilter($event)">
+    </filter-select>
 
     <person-input (addPerson)="addPerson($event)">
     </person-input>
@@ -46,13 +48,16 @@ import { partyModel } from './app.selectors';
 })
 export class AppComponent {
   public model;
+  public percentAttendance;
 
   constructor(private _store: Store<AppState>) {
     this.model = Observable.combineLatest(
       _store.select('people'),
       _store.select('partyFilter')
-    );
-    // .let(partyModel());
+    )
+    .let(partyModel());
+
+    this.percentAttendance = _store.let(percentAttending());
   }
 
   addPerson(name: string): void {
@@ -79,4 +84,3 @@ export class AppComponent {
     this._store.dispatch({ type: filter });
   }
 }
-
