@@ -11,8 +11,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import rootReducer from './app.reducer';
-import { PeopleReducer } from './people/people.reducer';
-import { PartyFilterReducer } from './people/party-filter.reducer';
 
 @NgModule({
   declarations: [
@@ -24,10 +22,7 @@ import { PartyFilterReducer } from './people/party-filter.reducer';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ // <-- transfer to `combineReducers` in app.reducer
-      people: PeopleReducer,
-      partyFilter: PartyFilterReducer
-    }),
+    StoreModule.forRoot( rootReducer ),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     })
