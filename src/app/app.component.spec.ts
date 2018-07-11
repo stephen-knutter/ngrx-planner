@@ -1,27 +1,40 @@
-import { TestBed, async } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { StoreModule, Store, combineReducers } from '@ngrx/store';
+
 import { AppComponent } from './app.component';
-describe('AppComponent', () => {
-  beforeEach(async(() => {
+import { AppState } from './app.reducer';
+
+import rootReducer from './app.reducer';
+
+describe('App Component', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let store: Store<AppState>;
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+      imports: [
+        StoreModule.forRoot( rootReducer )
       ],
-    }).compileComponents();
-  }));
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
-  it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app');
-  }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
+      declarations: [ AppComponent ],
+      schemas: [ NO_ERRORS_SCHEMA ]
+    });
+  });
+
+  beforeEach(() => {
+    store = TestBed.get(Store);
+
+    spyOn(store, 'dispatch').and.callThrough();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
-  }));
+  });
+
+  it('shoud be created', () => {
+    expect(component).toBeTruthy();
+  });
+
+  xit('should dispatch actions', () => {});
 });
